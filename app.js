@@ -1,5 +1,20 @@
 const express = require('express');
 var exphbs  = require('express-handlebars');
+const mongoose = require('mongoose');
+
+//map global promise - get rid of warning
+
+mongoose.promise = global.promise;
+
+mongoose.connect('mongodb://localhost/videos', {
+    useMongoClient: true
+})
+.then(() => console.log('Mongodb connected'))
+.catch(err => console.log(err));
+
+require('./models/Idea');
+const Idea = mongoose.model('ideas');
+
 
 // app to initiallize
 const app = express();
